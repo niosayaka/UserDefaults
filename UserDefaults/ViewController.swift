@@ -13,32 +13,29 @@ class ViewController: UIViewController {
     @IBOutlet var TextField1 : UITextField!
     @IBOutlet var TextField2 : UITextField!
     
-    var wordarray: [Dictionary<String,String>] = []
-    
-    var saveData = UserDefaults.standard
+    var Dictionary : [String:String] = [:]
+    let saveData = UserDefaults.standard
     //保存メゾット
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        TextField1.delegate = self as? UITextFieldDelegate
-        TextField2.delegate = self as? UITextFieldDelegate
-        
-        if saveData.array(forKey: "word") != nil{
-            wordarray = saveData.array(forKey: "word") as! [Dictionary<String,String>]
+    
+        if saveData.dictionary(forKey: "word") != nil {
+            Dictionary = saveData.dictionary(forKey: "word")as! Dictionary<String,String>
             
-            TextField1.text = ""
-            TextField2.text = ""
+            TextField1.text = Dictionary["furu"]
+            TextField2.text = Dictionary["vege"]
             
         }// Do any additional setup after loading the view, typically from a nib.
     }
     
     @IBAction func save(){
-        let wordDictionary = ["fruit": TextField1.text!, "vege": TextField2.text!]
-        saveData.set(wordDictionary, forKey: "word")
-        //saveを押した時の処理
-    }
-    
+        
+        Dictionary["furu"] = TextField1.text
+        Dictionary["vege"] = TextField2.text
+        
+        saveData.set(Dictionary, forKey: "word")
+     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
